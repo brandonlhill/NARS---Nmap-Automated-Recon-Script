@@ -1,6 +1,8 @@
+# Cloned from: https://github.com/brandonlhill/Nmap-Automated-Recon-Script 
+# Built Date: 11/03/2019. Updated: 12/15/2019. Version 1.2:wq:
 # This tool puts together a collection of important nmap scanning features.
 # This tool was built for educational purposes only. 
-# Do not use this tool to exploit devices that dont belong to you!
+# Do not use this tool to exploit device "with out" proper permissions
 
 # NARS - Nmap Automated Recon Script.
 Red='\033[0;31m'
@@ -17,7 +19,7 @@ read -p "Use -Pn flag? Y/n: " pn
 
 # Parsing User Options.
 # -Pn Option:
-if [ $pn == "Y" ] || [ $pn == "y" ]
+if [ "${pn^^}" == "Y" ] || [ $pn == "" ]
 then
   pn="-Pn"
 else
@@ -25,10 +27,10 @@ else
 fi
 
 # Vulnerability Scanners Option:
-if [ $vulnOption == "Y" ] || [ $vulnOption == "y" ]
+if [ "${vulnOption^^}" == "Y" ] || [ $vulnOption == "" ]
 then
   vulnOption=",vuln,http-enum,smb-system-info --version-intensity 5" 
-elif [ $vulnOption == "V" || $vulnOption == "v" ]
+elif [ "${vulnOption^^}" == "V" ]
 then
   vulnOption=",vuln,dos,http-enum,smb-brute,ssl-heartbleed,http-sql-injection,http-slowloris,smb-system-info --version-intensity 5" #other options ssh-brute,smb-enum-users
 else
@@ -42,7 +44,7 @@ main(){
 }
 
 # Main If-statement
-if [ $networkDiscovery == "Y" ] || [ $networkDiscovery == "y" ]
+if [ "${networkDiscovery^^}" == "Y" ] || [ $networkDiscovery == "" ]
 then
   printf "${Darkgray}The Network Device Discovery option will take the current IP and use selected subnet rules to scan all devices with in that subnet.\nExample: Selecting IP 192.168.12.1 and subnet /24 will make the script scan everything from 192.168.12.1 to 192.168.12.255.${NC}\n\n"
   read -p "Enter a Subnet for 'Network Device Discovery' Option: " subnet
@@ -51,7 +53,7 @@ then
   printf "${Green}Scanning $IP Subnet Range ($subnet) for Devices${NC}\n" 
   # Nmap scanner for devices on network range.
   nmap -sn -Pn $IP/$subnet | grep report | sed 's/Nmap scan report for//g' | grep "(" | tee $fileName".NARS-devices" # tee -a appends to a file.
-  if ([ $scanAll == "Y"  ] || [ $scanAll == "y" ]) && [ -s $fileName".NARS-devices" ] # If scanAll was selected by user, and if devices file contains IP's run the following:.
+  if ([ "${scanAll}" == "Y"  ] || [ $scanAll == "" ]) && [ -s $fileName".NARS-devices" ] # If scanAll was selected by user, and if devices file contains IP's run the following:.
   then 
     while IFS= read -r item
     do
