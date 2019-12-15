@@ -1,5 +1,5 @@
 # Cloned from: https://github.com/brandonlhill/Nmap-Automated-Recon-Script 
-# Built Date: 11/03/2019. Updated: 12/15/2019. Version 1.2.1:wq:
+# Built Date: 11/03/2019. Updated: 12/15/2019. Version 1.2.1
 # This tool puts together a collection of important nmap scanning features.
 # This tool was built for educational purposes only. 
 # Do not use this tool to exploit device "with out" proper permissions
