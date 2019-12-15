@@ -1,5 +1,4 @@
 # NARS-Nmap-Automated-Recon-Script 
-## Version-1.2.1
 NARS is a shell script that helps automate nmap scanning of local networks and devices.
 
 ## Dependencies
